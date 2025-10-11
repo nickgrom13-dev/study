@@ -1,5 +1,8 @@
 """
 Модуль ExchangeRate определяет класс ExchangeRate для управления информацией об обменных курсах.
+
+Класс ExchangeRate предоставляет функциональность для:
+- Обновления обменного курса.
 """
 from Currency import Currency
 
@@ -14,4 +17,8 @@ class ExchangeRate:
         return f"{self.id_rate}) {self.currency} имеет курс: {self.rate}"
 
     def update_rate(self, new_rate:float)->None:
+        """
+        Обновление обменного курса.
+        :param new_rate: Значение нового обменного курса
+        """
         self.rate = new_rate

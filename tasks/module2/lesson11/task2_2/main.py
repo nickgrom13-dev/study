@@ -7,6 +7,7 @@
 from Currency import Currency
 from ExchangeRate import ExchangeRate
 from CurrencyConverter import CurrencyConverter
+from additional_functions import get_amount, get_id
 
 rates = [
     ExchangeRate(Currency('RUB', 'Российский рубль'), 1),
@@ -31,28 +32,27 @@ while True:
             currency_converter.show_rates()
         case "2":
             while True:
-                amount = input("Введите сумму для конвертации\n").strip()
-                if not amount.isdigit() or int(amount) == 0:
-                    print(f"Введено некорректное значение {amount}.\nПовторите попытку.")
-                    continue
-                amount = int(amount)
-
-                id_from_currency = input("Введите код исходной валюты из списка валют\n").strip()
-                if not id_from_currency.isdigit():
-                    print(f"Введено некорректное значение {id_from_currency}.\nПовторите попытку.")
-                    continue
-                from_currency = currency_converter.get_exchange_rate(int(id_from_currency))
-                if not from_currency:
-                    print(f"Валюты с кодом {id_from_currency} нет в списке.\nПовторите попытку.")
+                amount = get_amount("Введите сумму для конвертации\n")
+                if amount == -1:
+                    print("Повторите попытку")
                     continue
 
-                id_to_currency = input("Введите код целевой валюты из списка валют\n").strip()
-                if not id_to_currency.isdigit():
-                    print(f"Введено некорректное значение {id_to_currency}.\nПовторите попытку.")
+                id_from_currency = get_id("Введите код исходной валюты из списка валют\n")
+                if id_from_currency == -1:
+                    print("Повторите попытку")
                     continue
-                to_currency = currency_converter.get_exchange_rate(int(id_to_currency))
+                from_currency = currency_converter.get_exchange_rate(id_from_currency)
                 if not from_currency:
-                    print(f"Валюты с кодом {id_to_currency} нет в списке.\nПовторите попытку.")
+                    print("Повторите попытку")
+                    continue
+
+                id_to_currency = get_id("Введите код целевой валюты из списка валют\n")
+                if id_to_currency == -1:
+                    print("Повторите попытку")
+                    continue
+                to_currency = currency_converter.get_exchange_rate(id_to_currency)
+                if not to_currency:
+                    print("Повторите попытку")
                     continue
 
                 if from_currency == to_currency:
@@ -60,25 +60,18 @@ while True:
                     break
 
                 result = currency_converter.convert(amount, from_currency, to_currency)
-                print(f"")
                 print(f"\n=== РЕЗУЛЬТАТ ===\n{amount:.3f} {from_currency.currency.code} "
                       f"= {result:.3f} {to_currency.currency.code}")
                 break
         case "3":
-            id_currency = input("Введите код валюты для обновления курса обмена\n").strip()
-            if id_currency.isdigit():
+            id_currency = get_id("Введите код валюты для обновления курса обмена\n")
+            if id_currency != -1:
                 rate = currency_converter.get_exchange_rate(int(id_currency))
                 if rate:
-                    new_rate = input(f"Введите новый курс для валюты {rate.currency.code}\n").strip()
-                    if CurrencyConverter.is_float(new_rate) and new_rate.find("-") == -1:
+                    new_rate = get_amount(f"Введите новый курс для валюты {rate.currency.code}\n")
+                    if new_rate != -1:
                         rate.update_rate(float(new_rate))
                         print(f"Для валюты {rate.currency.code} установлен новый курс {new_rate}\n")
-                    else:
-                        print(f"Введено некорректное значение {new_rate}.\n")
-                else:
-                    print(f"Валюты с кодом {id_currency} нет в списке.\n")
-            else:
-                print(f"Введено некорректное значение {id_currency}.\n")
         case "0":
             break
         case _:
