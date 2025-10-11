@@ -19,7 +19,7 @@ while 1:
                     "5) Удалить студента с факультета\n"
                     "6) Перевести студента на новый факультет\n"
                     "7) Найти студента по идентификатору\n"
-                    "8) Выход\n").strip()
+                    "0) Выход\n").strip()
 
     match command:
         case "1":
@@ -56,7 +56,7 @@ while 1:
                     print("Введено пустое значение\n")
         case "5":
             if not university_MGU.is_empty_faculties():
-                student_id = get_id("студента", "удалить")
+                student_id = get_id('Введите ID студента, которого нужно удалить\n')
                 if student_id != -1:
                     is_found_student = False
                     for faculty in university_MGU.faculties:
@@ -69,7 +69,7 @@ while 1:
                         print(f'Студент с ID {student_id} не найден\n')
         case "6":
             if not university_MGU.is_empty_faculties():
-                student_id = get_id("студента", "перевести")
+                student_id = get_id('Введите ID студента, которого нужно перевести\n')
                 if student_id != -1:
                     is_found_student = False
                     for faculty in university_MGU.faculties:
@@ -85,7 +85,7 @@ while 1:
                         print(f'Студент с ID {student_id} не найден\n')
         case "7":
             if not university_MGU.is_empty_faculties():
-                student_id = get_id("студента", "найти")
+                student_id = get_id('Введите ID студента, которого нужно найти\n')
                 if student_id != -1:
                     is_found_student = False
                     for faculty in university_MGU.faculties:
@@ -96,7 +96,7 @@ while 1:
                             break
                     if not is_found_student:
                         print(f'Студент с ID {student_id} не найден\n')
-        case "8":
+        case "0":
             break
         case _:
             print(f'Введен несуществующий пункт меню "{command}"\n')
