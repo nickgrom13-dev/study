@@ -1,7 +1,10 @@
+"""
+Класс Capuccino определяет процесс приготовления капучино.
+"""
 from CoffeeMachine import CoffeeMachine
 
-
 class Capuccino(CoffeeMachine):
+
     def get_water(self):
         return 50
 

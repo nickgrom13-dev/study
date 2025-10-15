@@ -1,7 +1,10 @@
+"""
+Класс Espresso определяет процесс приготовления эспрессо.
+"""
 from CoffeeMachine import CoffeeMachine
 
-
 class Espresso(CoffeeMachine):
+
     def get_water(self):
         return 40
 

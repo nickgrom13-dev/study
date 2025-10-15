@@ -1,7 +1,10 @@
+"""
+Класс Latte определяет процесс приготовления латте.
+"""
 from CoffeeMachine import CoffeeMachine
 
-
 class Latte(CoffeeMachine):
+
     def get_water(self):
         return 60
 
