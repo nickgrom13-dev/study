@@ -1,0 +1,33 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Корзина
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Корзина</h1>
+    <div class="catalog">
+        <table class="table_cart">
+                    <tr>
+                        <th>№ п/п</th>
+                        <th>Название</th>
+                        <th>Количество</th>
+                        <th>Стоимость</th>
+                        <th colspan="2"></th>
+                    </tr>
+                    {% for cart_item in cart_items %}
+                    <tr>
+                        <td>{{ cart_item.row_number }}</td>
+                        <td>{{ cart_item.title }}</td>
+                        <td>{{ cart_item.quantity }}</td>
+                        <td>{{ cart_item.sum }}</td>
+                        <th><button>+</button></th>
+                        <th><button>-</button></th>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a href="/">
+                    <button class="submit-btn" id="buy_button">Оформить заказ</button>
+                </a>
+    </div>
+{% endblock %}

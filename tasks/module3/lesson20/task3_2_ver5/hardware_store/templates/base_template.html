@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="{{ url_for('static',filename='js/script.js') }}"> </script>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <div id="header" class="header">
+        <div id="head_content" class="container header-content">
+            <div class="title">Магазин Техники ХМ</div>
+            <div>
+                <img class="logo-image" src="{{ url_for('static',filename='images/logo.jpg') }}" alt="Логотип магазина">
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="/" id="main_ref">Главная</a></li>
+                    <li><a href="/contacts" id="contacts_ref">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="cart-info">
+                {% block cart_info %}
+                <!--Корзина:
+                <a href="/open_cart">
+                    <span class="cart-count">{{count_cart.count}}</span>
+                </a>-->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div id="content" class="container">
+        {% block content %}
+        <!--{% if opened_cart %}
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <table>
+                    <tr>
+                        <th>№ п/п</th>
+                        <th>Название</th>
+                        <th>Количество</th>
+                        <th>Стоимость</th>
+                    </tr>
+                    {% for cart_item in cart_items %}
+                    <tr>
+                        <td>{{ cart_item.row_number }}</td>
+                        <td>{{ cart_item.title }}</td>
+                        <td>{{ cart_item.quantity }}</td>
+                        <td>{{ cart_item.sum }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a href="/">
+                    <button class="submit-btn" id="buy_button">Оформить заказ</button>
+                </a>
+            </div>
+        </div>
+        {% endif %}-->
+        {% endblock %}
+    </div>
+
+    <!-- Подвал сайта -->
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2025 Магазин Техники ХМ. Все права защищены.</p>
+        </div>
+    </div>
+</body>
+</html>
