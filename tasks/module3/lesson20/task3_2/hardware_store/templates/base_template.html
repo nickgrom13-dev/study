@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-    <script src="{{ url_for('static',filename='js/script.js') }}"> </script>
+    <script src="{{ url_for('static',filename='js/script.js') }}"></script>
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -17,11 +17,20 @@
             <nav class="menu">
                 <ul>
                     <li><a href="/" id="main_ref">Главная</a></li>
-                    <li><a href="/contacts" id="contacts_ref">Контакты</a></li>
+                    {% if not hide_contacts %}
+                        <li><a href="/contacts" id="contacts_ref">Контакты</a></li>
+                    {% endif %}
                 </ul>
             </nav>
             <div class="cart-info">
-                Корзина: <span class="cart-count">{{count_cart.count}}</span>
+                {% block cart_info %} {% endblock %}
+            </div>
+            <div class="user-login">
+                {% if session.username %}
+                    <a href="/logout">Выход ({{ session.name }})</a>
+                {% else %}
+                    <a href="/login">Вход</a>
+                {% endif %}
             </div>
         </div>
     </div>

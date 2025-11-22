@@ -1,0 +1,43 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Список заказов
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Список заказов</h1>
+    <div class="admin-form">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>№ п/п</th>
+                    <th>Дата и время заказа</th>
+                    <th>Имя пользователя</th>
+                    <th>Фамилия, имя</th>
+                    <th>Телефон</th>
+                    <th>E-mail</th>
+                    <th>Название товара</th>
+                    <th>Цена товара</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in order_items %}
+                    <tr>
+                        <td class="number">{{ order_item.row_number }}</td>
+                        <td class="date">{{ order_item.order_date }}</td>
+                        <td>{{ order_item.username }}</td>
+                        <td>{{ order_item.user_fio }}</td>
+                        <td>{{ order_item.phone }}</td>
+                        <td>{{ order_item.email }}</td>
+                        <td>{{ order_item.title }}</td>
+                        <td class="number">{{ order_item.price }}</td>
+                        <td class="number">{{ order_item.quantity }}</td>
+                        <td class="number">{{ order_item.sum }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

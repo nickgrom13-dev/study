@@ -6,23 +6,25 @@
 
 {% block cart_info %}
     Корзина:
-    <a href="/open_cart">
+    <a href="/cart">
         <span class="cart-count">{{count_cart.count}}</span>
     </a>
 {% endblock %}
 
 {% block content %}
     {% if success %}
-    <!-- Модальное окно при успешном добавлении -->
+        <!-- Модальное окно при успешном добавлении -->
         <div id="successModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <div class="success-icon">✓</div>
                 <h3>Успешно!</h3>
-                <p>Товар был успешно добавлен.</p>
-                <a href="/">
-                    <button class="submit-btn" id="ok_button" onclick="closeModal()">OK</button>
-                </a>
+                {% if success_order %}
+                    <p>Заказ оформлен.</p>
+                {% else %}
+                    <p>Товар был успешно добавлен.</p>
+                {% endif %}
+                <button class="submit-btn" id="ok_button" onclick="closeModal()">OK</button>
             </div>
         </div>
     {% endif %}
@@ -34,10 +36,10 @@
             <img class="product-image" src="{{ url_for('static',filename='images/' + item.photo) }}" alt="{{ item.title }}" >
             <div class="product-info">
                 <h3 class="product-title">{{ item.title }}</h3>
-                <p class="product-description">{{ item.info }}</p>
+                <p class="product-description">{{ item.description }}</p>
                 <div class="product-price">{{ item.price }} руб.</div>
-                <a href="/add_cart?id={{ item.item_id }}">
-                    <button class="add-to-cart" onclick="showSuccessModal()">Добавить в корзину</button>
+                <a href="/add_to_cart?item_id={{ item.item_id }}">
+                    <button class="add-to-cart">Добавить в корзину</button>
                 </a>
             </div>
             </div>

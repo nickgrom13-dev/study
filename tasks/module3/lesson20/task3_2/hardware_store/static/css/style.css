@@ -5,9 +5,27 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+a{
+    text-decoration:none;
+}
+
+/* Четные строки */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* нечетные строки */
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e3f2fd;
 }
 
 /* Шапка */
@@ -74,8 +92,19 @@ nav ul li a.active {
     align-items: center;
 }
 
+.user-login {
+    display: flex;
+    align-items: center;
+    padding-left:25px;
+    font-size:20px;
+}
+
+.user-login a{
+    color: white;
+}
+
 .cart-count {
-    background-color: #e74c3c;
+    background-color: FireBrick;
     color: white;
     border-radius: 50%;
     width: 25px;
@@ -85,6 +114,11 @@ nav ul li a.active {
     justify-content: center;
     margin-left: 10px;
     font-size: 0.8rem;
+}
+
+.cart-count:hover {
+    background-color: Red;
+    transform: scale(1.1);
 }
 
 .page-title {
@@ -106,6 +140,7 @@ nav ul li a.active {
     border-radius: 8px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    padding-bottom:20px;
 }
 
 .product-card:hover {
@@ -158,6 +193,7 @@ nav ul li a.active {
 
 .add-to-cart:hover {
     background-color: RoyalBlue;
+    transform: scale(1.1);
 }
 
 /* Стили для страницы контактов */
@@ -209,7 +245,7 @@ textarea.form-control {
 }
 
 .submit-btn {
-    background-color: LimeGreen;
+    background-color: DarkGreen;
     color: white;
     border: none;
     padding: 10px 25px;
@@ -220,7 +256,8 @@ textarea.form-control {
 }
 
 .submit-btn:hover {
-    background-color: DarkGreen;
+    background-color: ForestGreen;
+    transform: scale(1.1);
 }
 
 /* Стили для модального окна */
@@ -252,7 +289,7 @@ textarea.form-control {
 }
 
 .close {
-    color: DimGray;
+    color: FireBrick;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -260,7 +297,198 @@ textarea.form-control {
 }
 
 .close:hover {
-    color: black;
+    color: Red;
+    transform: scale(1.1);
+}
+
+/* Стили для корзины */
+
+.table-cart{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.table-cart th {
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    text-align: center;
+    background: MidnightBlue;
+    color: white;
+}
+
+.table-cart tbody tr {
+    border-bottom: 1px solid LightGray;
+    transition: all 0.3s ease;
+}
+
+.table-cart td {
+    padding: 20px 15px;
+    color: DimGray;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.cart-form {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    padding: 30px;
+    overflow: hidden;
+}
+
+.order-btn {
+    background-color: DarkGreen;
+    color: white;
+    border: none;
+    font-size:16px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.order-btn:hover {
+    background-color: ForestGreen;
+    transform: scale(1.1);
+}
+
+.order_btn_ref{
+    text-decoration: none;
+    display: block;
+    text-align:center;
+}
+
+.btn-increase, .btn-decrease {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 45px;
+}
+
+.btn-increase {
+    background: DarkGreen;
+    color: white;
+}
+
+.btn-increase:hover {
+    background: ForestGreen;
+    transform: scale(1.1);
+}
+
+.btn-decrease {
+    background: FireBrick;
+    color: white;
+}
+
+.btn-decrease:hover {
+    background: Red;
+    transform: scale(1.1);
+}
+
+/* Стили для формы авторизации */
+.login-form {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group-login {
+    margin-bottom: 25px;
+}
+
+.form-group-login label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 1000;
+    font-size: 20px;
+}
+
+.login-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid LightGrey;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.login-btn {
+    background-color: DarkGreen;
+    color: white;
+    border: none;
+    font-size:16px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-left: 30%;
+}
+
+.login-btn:hover {
+    background-color: ForestGreen;
+    transform: scale(1.1);
+}
+
+/*Стили админки*/
+
+.admin-form {
+    max-width: 1500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    padding: 30px;
+    overflow: hidden;
+}
+
+.table-admin{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.table-admin th {
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    text-align: center;
+    background: MidnightBlue;
+    color: white;
+}
+
+.table-admin tbody tr {
+    border-bottom: 1px solid LightGray;
+    transition: all 0.3s ease;
+}
+
+.table-admin td {
+    padding: 20px 15px;
+    color: DimGray;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /* Подвал */

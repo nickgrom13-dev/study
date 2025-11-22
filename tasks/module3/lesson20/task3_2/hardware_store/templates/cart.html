@@ -1,0 +1,54 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Корзина
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">Корзина</h1>
+
+    <div class="cart-form">
+        <table class="table-cart">
+            <thead>
+                <tr>
+                    <th>№ п/п</th>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Сумма</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart_item in cart_items %}
+                    <tr id="row-{{ cart_item.item_id }}">
+                        <td class="number">{{ cart_item.row_number }}</td>
+                        <td>{{ cart_item.title }}</td>
+                        <td class="number" id="quantity-{{ cart_item.item_id }}">{{ cart_item.quantity }}</td>
+                        <td class="number">{{ cart_item.price }}</td>
+                        <td class="number" id="sum-{{ cart_item.item_id }}">{{ cart_item.sum }}</td>
+                        <td>
+                            <button class="btn-increase" value="{{ cart_item.item_id }}">+</button>
+                        </td>
+                        <td>
+                            <button class="btn-decrease" value="{{ cart_item.item_id }}">-</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if is_not_empty %}
+                    <tr>
+                        <td colspan="4">Итоговая сумма</td>
+                        <td class="number" id="total-sum">{{ total_sum_cart.total_sum }}</td>
+                        <td colspan="2"></td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        {% if is_not_empty %}
+            <a href="/order?total_sum={{ total_sum_cart.total_sum }}" class="order_btn_ref" id="order_btn_ref">
+                <button class="order-btn" id="order_btn">Оформить заказ</button>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
