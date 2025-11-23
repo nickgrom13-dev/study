@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функция для отправки AJAX запроса
     function sendQuantityRequest(itemId, action) {
         fetch(`/${action}_quantity?item_id=${itemId}`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }

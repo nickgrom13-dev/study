@@ -130,108 +130,110 @@ def cart():
     #Загружаем страницу корзины
     return render_template('cart.html', cart_items = cart_items, total_sum_cart = total_sum_cart, is_not_empty = is_not_empty)
 
-@app.route('/increase_quantity')
+@app.route('/increase_quantity', methods=['GET', 'POST'])
 def increase_quantity():
     """Увеличить количество товара в корзине на 1"""
     try:
-        # Получаем из параметров id товара, у которого в корзине нужно увеличить количество на 1
-        item_id = request.args.get('item_id')
-        if item_id and item_id.isdigit():
-            item_id = int(item_id)
+        if request.method == 'POST':
+            # Получаем из параметров id товара, у которого в корзине нужно увеличить количество на 1
+            item_id = request.args.get('item_id')
+            if item_id and item_id.isdigit():
+                item_id = int(item_id)
 
-            # Получаем из сессии id корзины пользователя, в которой нужно увеличить количество товара
-            cart_id = session.get('cart_id')
+                # Получаем из сессии id корзины пользователя, в которой нужно увеличить количество товара
+                cart_id = session.get('cart_id')
 
-            # Получаем данные из корзины пользователя по товару, у которого увеличиваем количество
-            item = get_cart_item(item_id, cart_id)
-            if item:
-                #Обновляем количество единиц товара в корзине (увеличиваем)
-                update_cart_item(item_id, cart_id, '+')
-                # подтверждаем изменения
-                connection.commit()
+                # Получаем данные из корзины пользователя по товару, у которого увеличиваем количество
+                item = get_cart_item(item_id, cart_id)
+                if item:
+                    #Обновляем количество единиц товара в корзине (увеличиваем)
+                    update_cart_item(item_id, cart_id, '+')
+                    # подтверждаем изменения
+                    connection.commit()
 
-                #Получаем обновленные данные (товара и общей суммы)
-                updated_item = get_cart_item(item_id, cart_id)
-                total_sum = get_total_sum_cart(cart_id)
+                    #Получаем обновленные данные (товара и общей суммы)
+                    updated_item = get_cart_item(item_id, cart_id)
+                    total_sum = get_total_sum_cart(cart_id)
 
-                # Возвращаем JSON для AJAX
-                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({
-                        'success': True, #статус успешного изменения
-                        'item_id': item_id, #id товара
-                        'new_quantity': updated_item['quantity'], #новое количество
-                        'item_sum': updated_item['sum'], #новая сумма по товару
-                        'total_sum': total_sum['total_sum'], #новая общая сумма
-                        'deleted': False #флажок удаления строки из страницы
-                    })
+                    # Возвращаем JSON для AJAX
+                    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                        return jsonify({
+                            'success': True, #статус успешного изменения
+                            'item_id': item_id, #id товара
+                            'new_quantity': updated_item['quantity'], #новое количество
+                            'item_sum': updated_item['sum'], #новая сумма по товару
+                            'total_sum': total_sum['total_sum'], #новая общая сумма
+                            'deleted': False #флажок удаления строки из страницы
+                        })
 
-        # Если это не AJAX запрос, обновляем страницу корзины
-        if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
-            return redirect('/cart')
+            # Если это не AJAX запрос, обновляем страницу корзины
+            if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+                return redirect('/cart')
 
-        return jsonify({'success': False, 'error': 'Ошибка обновления'})
+            return jsonify({'success': False, 'error': 'Ошибка обновления'})
 
     except Exception as e:
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify({'success': False, 'error': str(e)})
         return f'Ошибка!<br>{e}'
 
-@app.route('/decrease_quantity')
+@app.route('/decrease_quantity', methods=['GET', 'POST'])
 def decrease_quantity():
     """Уменьшить количество товара в корзине на 1"""
     try:
-        # Получаем из параметров id товара, у которого в корзине нужно уменьшить количество на 1
-        item_id = request.args.get('item_id')
-        if item_id and item_id.isdigit():
-            item_id = int(item_id)
+        if request.method == 'POST':
+            # Получаем из параметров id товара, у которого в корзине нужно уменьшить количество на 1
+            item_id = request.args.get('item_id')
+            if item_id and item_id.isdigit():
+                item_id = int(item_id)
 
-            # Получаем из сессии id корзины пользователя, в которой нужно уменьшить количество товара
-            cart_id = session.get('cart_id')
+                # Получаем из сессии id корзины пользователя, в которой нужно уменьшить количество товара
+                cart_id = session.get('cart_id')
 
-            # Получаем данные из корзины пользователя по товару, у которого уменьшаем количество
-            item = get_cart_item(item_id, cart_id)
+                # Получаем данные из корзины пользователя по товару, у которого уменьшаем количество
+                item = get_cart_item(item_id, cart_id)
 
-            if item:
-                # Обновляем количество единиц товара в корзине
-                # Если количество единиц товара больше 1, то уменьшаем его
-                # иначе удаляем товар из корзины
-                deleted = False
-                if item['quantity'] > 1:
-                    update_cart_item(item_id, cart_id, '-')
-                else:
-                    delete_cart_item(item_id, cart_id)
-                    deleted = True
-                # подтверждаем изменения
-                connection.commit()
+                if item:
+                    # Обновляем количество единиц товара в корзине
+                    # Если количество единиц товара больше 1, то уменьшаем его
+                    # иначе удаляем товар из корзины
+                    deleted = False
+                    if item['quantity'] > 1:
+                        update_cart_item(item_id, cart_id, '-')
+                    else:
+                        delete_cart_item(item_id, cart_id)
+                        deleted = True
+                    # подтверждаем изменения
+                    connection.commit()
 
-                #Получаем обновленные данные (товара и общей суммы)
-                total_sum = get_total_sum_cart(cart_id)
+                    #Получаем обновленные данные (товара и общей суммы)
+                    total_sum = get_total_sum_cart(cart_id)
 
-                # Если товар не удален, получаем его данные
-                if not deleted:
-                    updated_item = get_cart_item(item_id, cart_id)
-                    item_sum = updated_item['sum']
-                    new_quantity = updated_item['quantity']
-                else:
-                    item_sum = 0
-                    new_quantity = 0
+                    # Если товар не удален, получаем его данные
+                    if not deleted:
+                        updated_item = get_cart_item(item_id, cart_id)
+                        item_sum = updated_item['sum']
+                        new_quantity = updated_item['quantity']
+                    else:
+                        item_sum = 0
+                        new_quantity = 0
 
-                # Возвращаем JSON для AJAX
-                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({
-                        'success': True, #статус успешного изменения
-                        'item_id': item_id, #id товара
-                        'new_quantity': new_quantity, #новое количество
-                        'item_sum': item_sum, #новая сумма по товару
-                        'total_sum': total_sum['total_sum'], #новая общая сумма
-                        'deleted': deleted #флажок удаления строки из страницы
-                    })
+                    # Возвращаем JSON для AJAX
+                    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                        return jsonify({
+                            'success': True, #статус успешного изменения
+                            'item_id': item_id, #id товара
+                            'new_quantity': new_quantity, #новое количество
+                            'item_sum': item_sum, #новая сумма по товару
+                            'total_sum': total_sum['total_sum'], #новая общая сумма
+                            'deleted': deleted #флажок удаления строки из страницы
+                        })
 
-        # Если это не AJAX запрос, обновляем страницу корзины
-        if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
-            return redirect('/cart')
+            # Если это не AJAX запрос, обновляем страницу корзины
+            if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+                return redirect('/cart')
 
-        return jsonify({'success': False, 'error': 'Ошибка обновления'})
+            return jsonify({'success': False, 'error': 'Ошибка обновления'})
 
     except Exception as e:
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
