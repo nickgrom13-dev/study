@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <script src="./static/js/script.js"></script>
+</head>
+<body>
+    <h1>Простой калькулятор</h1>
+    <form method='post'>
+        <!-- Текстовое поле для отображения выражения (дисплей) -->
+        <input type="text" class="display" id="display" readonly value="0">
+
+        <!-- Блок с кнопками калькулятора -->
+        <div class="buttons-container">
+            <!-- Первая строка: очистка и удаление последнего символа-->
+            <div class="button-row">
+                <button type="button" class="clear" onclick="clearDisplay()">C</button>
+                <button type="button" class="delete" onclick="deleteLast()">←</button>
+            </div>
+
+            <!-- Вторая строка: цифры 7, 8, 9 и оператор сложение -->
+            <div class="button-row">
+                <button type="button" class="number" onclick="addToDisplay('7')">7</button>
+                <button type="button" class="number" onclick="addToDisplay('8')">8</button>
+                <button type="button" class="number" onclick="addToDisplay('9')">9</button>
+                <button type="button" class="operator" onclick="addToDisplay('+')">+</button>
+            </div>
+
+            <!-- Третья строка: цифры 4, 5, 6 и оператор вычитание  -->
+            <div class="button-row">
+                <button type="button" class="number" onclick="addToDisplay('4')">4</button>
+                <button type="button" class="number" onclick="addToDisplay('5')">5</button>
+                <button type="button" class="number" onclick="addToDisplay('6')">6</button>
+                <button type="button" class="operator" onclick="addToDisplay('-')">-</button>
+            </div>
+
+            <!-- Четвертая строка: цифры 1, 2, 3 и оператор умножение -->
+            <div class="button-row">
+                <button type="button" class="number" onclick="addToDisplay('1')">1</button>
+                <button type="button" class="number" onclick="addToDisplay('2')">2</button>
+                <button type="button" class="number" onclick="addToDisplay('3')">3</button>
+                <button type="button" class="operator" onclick="addToDisplay('*')">*</button>
+            </div>
+
+            <!-- Пятая строка: цифра 0 и операторы точка, деление и равно -->
+            <div class="button-row">
+                <button type="button" class="number" onclick="addToDisplay('0')">0</button>
+                <button type="button" class="operator" onclick="addToDisplay('.')">.</button>
+                <button type="button" class="operator" onclick="addToDisplay('/')">/</button>
+                <button type="button" class="equals" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

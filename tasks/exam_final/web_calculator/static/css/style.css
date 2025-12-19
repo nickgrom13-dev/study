@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: DimGrey;
+}
+
+.display {
+    width: 95%;
+    height: 50px;
+    font-size: 24px;
+    text-align: right;
+    padding: 7px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: Snow;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.number {
+    background-color: LightGrey;
+}
+
+.number:hover {
+    background-color: DarkGrey;
+}
+
+.operator {
+    background-color: Orange;
+    color: white;
+}
+
+.operator:hover {
+    background-color: DarkOrange;
+}
+
+.equals {
+    background-color: ForestGreen;
+    color: white;
+    font-weight: bold;
+}
+
+.equals:hover {
+    background-color: DarkGreen;
+}
+
+.clear {
+    background-color: Red;
+    color: white;
+}
+
+.clear:hover {
+    background-color: FireBrick;
+}
+
+.delete {
+    background-color: DodgerBlue;
+    color: white;
+}
+
+.delete:hover {
+    background-color: RoyalBlue;
+}
